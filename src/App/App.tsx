@@ -1,7 +1,9 @@
+import SearchForm from "components/SearchForm/SearchForm";
+
 function App() {
   return (
     <>
-     Test
+     <SearchForm/>
     </>
   );
 }
