@@ -3,6 +3,7 @@ export interface ITask {
   description: string;
   status: "todo" | "in-progress" | "done";
   owner: string;
+  _id?: string;
 }
 
 export interface IBoard {
@@ -17,7 +18,9 @@ export interface IBoardState {
   error: string | null;
 }
 
-export interface IData {
-  board: IBoard;
+export interface ITaskState {
   tasks: ITask[];
+  isTaskLoading: boolean;
+  error: string | null;
 }
+

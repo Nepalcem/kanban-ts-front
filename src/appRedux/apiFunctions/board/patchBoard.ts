@@ -1,14 +1,17 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IBoard } from "App/AppTypes";
-import { boardEndPoint } from "./endPoints";
+import { boardEndPoint } from "../endPoints";
 
-const deleteBoard = createAsyncThunk(
-  "board/deleteBoard",
+const patchBoard = createAsyncThunk(
+  "board/patchBoard",
   async (board: IBoard, thunkAPI) => {
-    const { hashedID } = board;
+    const { hashedID, title } = board;
     try {
-      const response = await axios.delete(`${boardEndPoint}/${hashedID}`);
+      const response = await axios.patch(
+        `${boardEndPoint.BASE_LOCAL_URL}/${hashedID}`,
+        { title }
+      );
       return response.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -20,4 +23,4 @@ const deleteBoard = createAsyncThunk(
   }
 );
 
-export default deleteBoard;
+export default patchBoard;

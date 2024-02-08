@@ -1,35 +1,36 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { StyledForm } from "./SearchForm.styled";
 import SearchButton from "./SearchButton/SearchButton";
-import { useAppDispatch } from "components/hooks/typedHooks";
-import { getBoard } from "../../redux/apiFunctions";
+import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
+import { getBoard } from "appRedux/apiFunctions";
+import { getBoardLoadingSelector } from "appRedux/selectors";
+import { getTasks } from "appRedux/slices/tasksSlice";
 
 export default function SearchForm() {
   const [inputValue, setInputValue] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const isLoading = useAppSelector(getBoardLoadingSelector);
   const dispatch = useAppDispatch();
-  
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
-    };
-    
-     const handleSubmit = async (e: FormEvent): Promise<void> => {
-       e.preventDefault();
-       setIsLoading(true);
-       try {
-         dispatch(getBoard(inputValue));
+  };
 
-       } catch (error: any) {
-         console.error("Error fetching issues:", error.message);
-       } finally {
-         setIsLoading(false);
-       }
-     };
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
+    e.preventDefault();
+    try {
+      dispatch(getBoard(inputValue)).then((response) => {
+          dispatch(getTasks(response.payload.tasks));
+      });
+      setInputValue("");
+    } catch (error: any) {
+      console.error("Error fetching issues:", error.message);
+    }
+  };
 
   return (
-    <h1>
-      SearchForm
+    <div>
+      <h1>SearchForm</h1>
       <StyledForm>
         <input
           type="text"
@@ -39,6 +40,6 @@ export default function SearchForm() {
         ></input>
         <SearchButton onClick={handleSubmit} isLoading={isLoading} />
       </StyledForm>
-    </h1>
+    </div>
   );
 }

@@ -1,13 +1,14 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { boardEndPoint } from "./endPoints";
+import { boardEndPoint } from "../endPoints";
 
-const getBoard = createAsyncThunk(
-  "board/getBoard",
+const deleteBoard = createAsyncThunk(
+  "board/deleteBoard",
   async (hashedID: string, thunkAPI) => {
     try {
-        const response = await axios.get(`${boardEndPoint}/${hashedID}`);
-        console.log(response);
+      const response = await axios.delete(
+        `${boardEndPoint.BASE_LOCAL_URL}/${hashedID}`
+      );
       return response.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -19,4 +20,4 @@ const getBoard = createAsyncThunk(
   }
 );
 
-export default getBoard;
+export default deleteBoard;

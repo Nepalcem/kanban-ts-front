@@ -1,16 +1,15 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IBoard } from "App/AppTypes";
-import { boardEndPoint } from "./endPoints";
+import { boardEndPoint } from "../endPoints";
 
-const patchBoard = createAsyncThunk(
-  "board/patchBoard",
+const createBoard = createAsyncThunk(
+  "board/create",
   async (board: IBoard, thunkAPI) => {
-    const { hashedID, title } = board;
     try {
-      const response = await axios.patch(
-        `${boardEndPoint}/${hashedID}`,
-        { title }
+      const response = await axios.post(
+        `${boardEndPoint.BASE_LOCAL_URL}/`,
+        board
       );
       return response.data;
     } catch (e) {
@@ -23,4 +22,4 @@ const patchBoard = createAsyncThunk(
   }
 );
 
-export default patchBoard;
+export default createBoard;

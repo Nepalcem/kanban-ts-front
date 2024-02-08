@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { BoardReducer } from "./slices/boardSlice";
+import { TasksReducer } from "./slices/tasksSlice";
 import {
   persistStore,
   persistReducer,
@@ -14,6 +15,7 @@ import storage from "redux-persist/lib/storage";
 import { IBoardState } from "App/AppTypes";
 
 
+
 const authorizePersistConfig = {
   key: "boardData",
   storage,
@@ -26,6 +28,7 @@ export const store = configureStore({
       authorizePersistConfig,
       BoardReducer
     ),
+    tasks: TasksReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
