@@ -6,10 +6,15 @@ import { FormTextField } from "./ModalForm.styled";
 import { toast } from "react-toastify";
 import { patchBoard } from "appRedux/apiFunctions";
 import { getBoardLoadingSelector } from "appRedux/selectors";
-import { IBoard } from "App/AppTypes";
 import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
 
-const ModalForm: FC<IBoard> = ({ hashedID, title }) => {
+interface IBoardEditModalProps {
+  hashedID: string;
+  title: string;
+  handleClose: () => void;
+}
+
+const ModalForm: FC<IBoardEditModalProps> = ({ hashedID, title, handleClose }) => {
   const [boardTitle, setBoardTitle] = useState<string>(title || "");
 
   const dispatch = useAppDispatch();
@@ -21,7 +26,7 @@ const ModalForm: FC<IBoard> = ({ hashedID, title }) => {
     }
   };
 
-  const submitHandler = (e: FormEvent) => {
+  const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
     if (boardTitle.trim().length === 0) {
       toast.warning("Board title cannot be empty!");
@@ -32,7 +37,8 @@ const ModalForm: FC<IBoard> = ({ hashedID, title }) => {
       title: boardTitle.trim(),
     };
 
-    dispatch(patchBoard(updatedBoard));
+    await dispatch(patchBoard(updatedBoard));
+    handleClose();
   };
 
   return (
@@ -40,7 +46,6 @@ const ModalForm: FC<IBoard> = ({ hashedID, title }) => {
       <FormTextField
         type="text"
         name="title"
-        inputProps={{ pattern: "^[A-Za-z\u0080-\uFFFF ' ]+$" }}
         title="Title may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
         onChange={handleChange}

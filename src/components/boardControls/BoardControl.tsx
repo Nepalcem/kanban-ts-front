@@ -7,8 +7,8 @@ import { BoardControlMainDiv, BoardControlParagraph } from "./BoardControl.style
 
 export default function BoardControl() {
   const board = useAppSelector(getBoardSelector);
-  const hashedID = board?.hashedID;
-  const title = board?.title;
+  const hashedID = board?.hashedID || '';
+  const title = board?.title || '';
 
   return (
     <BoardControlMainDiv>

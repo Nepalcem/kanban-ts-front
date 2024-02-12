@@ -6,9 +6,13 @@ import ModalForm from "./ModalForm/ModalForm";
 import CloseIcon from "./CloseIcon/CloseIcon";
 import { IconButton } from "@mui/material";
 import { mainModalStyle, closeButtonStyle } from "./modalStyles";
-import { IBoard } from "App/AppTypes";
 
-const EditBoardModal: FC<IBoard> = ({ hashedID, title }) => {
+interface IEditBoardModal {
+  hashedID: string;
+  title: string;
+}
+
+const EditBoardModal: FC<IEditBoardModal> = ({ hashedID, title }) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -24,7 +28,11 @@ const EditBoardModal: FC<IBoard> = ({ hashedID, title }) => {
       >
         <Box sx={mainModalStyle}>
           <h2>Update Board</h2>
-          <ModalForm hashedID={hashedID} title={title} />
+          <ModalForm
+            hashedID={hashedID}
+            title={title}
+            handleClose={handleClose}
+          />
           <IconButton
             edge="end"
             color="inherit"
