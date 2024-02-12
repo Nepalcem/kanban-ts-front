@@ -7,7 +7,7 @@ const deleteBoard = createAsyncThunk(
   async (hashedID: string, thunkAPI) => {
     try {
       const response = await axios.delete(
-        `${boardEndPoint.BASE_LOCAL_URL}/${hashedID}`
+        `${boardEndPoint.BASE_URL}/${hashedID}`
       );
       return response.data;
     } catch (e) {

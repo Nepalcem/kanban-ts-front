@@ -9,7 +9,7 @@ const patchBoard = createAsyncThunk(
     const { hashedID, title, tasks } = board;
     try {
       const response = await axios.patch(
-        `${boardEndPoint.BASE_LOCAL_URL}/${hashedID}`,
+        `${boardEndPoint.BASE_URL}/${hashedID}`,
         { title, tasks }
       );
       return response.data;

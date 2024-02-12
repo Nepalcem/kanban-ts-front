@@ -1,11 +1,3 @@
-// export interface ITask {
-//   title: string;
-//   description: string;
-//   status: "to do" | "in-progress" | "done";
-//   _id: string;
-//   columnIndex: number
-// }
-
 export interface IBoard {
   title?: string;
   hashedID?: string;

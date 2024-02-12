@@ -6,9 +6,7 @@ const getBoard = createAsyncThunk(
   "board/getBoard",
   async (hashedID: string, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${boardEndPoint.BASE_LOCAL_URL}/${hashedID}`
-      );
+      const response = await axios.get(`${boardEndPoint.BASE_URL}/${hashedID}`);
       return response.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
