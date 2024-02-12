@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   createBoard,
   getBoard,
@@ -38,7 +38,6 @@ const boardSlice = createSlice({
       .addCase(getBoard.fulfilled, (state, action) => {
         state.board = action.payload.board;
         state.isLoading = false;
-        console.log("Tasks payload:", action.payload.tasks);
       })
       .addCase(patchBoard.pending, (state, action) => {
         state.isLoading = true;

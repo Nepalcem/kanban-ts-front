@@ -1,13 +1,13 @@
 import styled from "styled-components";
+import { TextField } from "@mui/material";
 
-export const StyledForm = styled.form`
+export const ModalFormStyled = styled.form`
+  margin: 30px auto;
   display: flex;
-  gap: 20px;
-  & input {
-    min-width: 200px;
-    padding: 5px;
-    font-size: 14px;
-  }
+  gap: 15px;
+  max-width: 360px;
+  flex-direction: column;
+
   & button {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -48,5 +48,17 @@ export const StyledForm = styled.form`
   & button:hover {
     box-shadow: 0 0 10px rgba(81, 203, 238, 0.8),
       0 0 20px rgba(81, 203, 238, 0.6), 0 0 30px rgba(81, 203, 238, 0.4);
+  }
+`;
+
+export const FormTextField = styled(TextField)`
+  .MuiInputLabel-root:not([data-shrink="true"]) {
+    transform: translate(14px, 10px) scale(1);
+    font-size: 14px;
+  }
+  & input {
+    height: 18px;
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 `;

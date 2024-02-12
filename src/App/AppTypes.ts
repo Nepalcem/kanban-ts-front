@@ -1,15 +1,16 @@
-export interface ITask {
-  title: string;
-  description: string;
-  status: "todo" | "in-progress" | "done";
-  owner: string;
-  _id?: string;
-}
+// export interface ITask {
+//   title: string;
+//   description: string;
+//   status: "to do" | "in-progress" | "done";
+//   _id: string;
+//   columnIndex: number
+// }
 
 export interface IBoard {
   title?: string;
   hashedID?: string;
   _id?: string;
+  tasks?: ITask[];
 }
 
 export interface IBoardState {
@@ -18,9 +19,9 @@ export interface IBoardState {
   error: string | null;
 }
 
-export interface ITaskState {
-  tasks: ITask[];
-  isTaskLoading: boolean;
-  error: string | null;
+export interface ITask {
+  title: string;
+  description: string;
+  status: "to do" | "in-progress" | "done";
+  columnIndex: number;
 }
-

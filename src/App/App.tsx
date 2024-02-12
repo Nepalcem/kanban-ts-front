@@ -1,16 +1,15 @@
-import SearchForm from "components/SearchForm/SearchForm";
-import BoardControl from "components/boardControls/BoardControl";
-import BoardStatus from "components/boardStatus/boardStatus";
+import MainContainer from "components/MainContainer/MainContainer";
+import PageHeader from "components/PageHeader/PageHeader";
 import { ToastContainer } from "react-toastify";
+import TaskPlateCondition from "components/TasksPlate/TaskPlateCondition/TaskPlateCondition";
 
 function App() {
   return (
-    <>
+    <MainContainer>
       <ToastContainer autoClose={5000} theme="colored" />
-      <SearchForm />
-      <BoardStatus />
-      <BoardControl/>
-    </>
+      <PageHeader />
+      <TaskPlateCondition />
+    </MainContainer>
   );
 }
 

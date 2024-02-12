@@ -6,11 +6,11 @@ import { boardEndPoint } from "../endPoints";
 const patchBoard = createAsyncThunk(
   "board/patchBoard",
   async (board: IBoard, thunkAPI) => {
-    const { hashedID, title } = board;
+    const { hashedID, title, tasks } = board;
     try {
       const response = await axios.patch(
         `${boardEndPoint.BASE_LOCAL_URL}/${hashedID}`,
-        { title }
+        { title, tasks }
       );
       return response.data;
     } catch (e) {

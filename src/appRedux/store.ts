@@ -1,6 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { BoardReducer } from "./slices/boardSlice";
-import { TasksReducer } from "./slices/tasksSlice";
 import {
   persistStore,
   persistReducer,
@@ -12,24 +11,21 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { IBoardState } from "App/AppTypes";
 
 
 
-const authorizePersistConfig = {
-  key: "boardData",
+const rootReducer = combineReducers({
+  boardData: BoardReducer,
+});
+const persistConfig = {
+  key: "root",
   storage,
-  whitelist: ["board"],
+  whitelist: ["boardData"],
 };
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    boardData: persistReducer<IBoardState>(
-      authorizePersistConfig,
-      BoardReducer
-    ),
-    tasks: TasksReducer
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

@@ -3,6 +3,7 @@ import { useAppSelector } from "components/hooks/typedHooks";
 import CreateBoardModal from "./createBoardModal/CreateBoardModal";
 import EditBoardModal from "./editBoardModal/EditBoardModal";
 import DeleteBoardBtn from "./DeleteBoardBtn/DeleteBoardBtn";
+import { BoardControlMainDiv, BoardControlParagraph } from "./BoardControl.styled";
 
 export default function BoardControl() {
   const board = useAppSelector(getBoardSelector);
@@ -10,21 +11,28 @@ export default function BoardControl() {
   const title = board?.title;
 
   return (
-    <div>
-      BoardControl
+    <BoardControlMainDiv>
+      <h2>BoardControls</h2>
+      <BoardControlParagraph>
+        <CreateBoardModal />
+        <span>Create New Board</span>
+      </BoardControlParagraph>
+
       {!board ? (
-        <>
-          <p>Create Board</p>
-          <CreateBoardModal />
-        </>
+        <></>
       ) : (
         <>
-          <p>Update Current Board</p>
-          <EditBoardModal hashedID={hashedID} title={title} />
-          <p>Delete Board</p>
-          <DeleteBoardBtn hashedID={hashedID} />
+          <BoardControlParagraph>
+            <EditBoardModal hashedID={hashedID} title={title} />
+            <span>Update Current Board</span>
+          </BoardControlParagraph>
+
+          <BoardControlParagraph>
+            <DeleteBoardBtn hashedID={hashedID} />
+            <span>Delete Board</span>
+          </BoardControlParagraph>
         </>
       )}
-    </div>
+    </BoardControlMainDiv>
   );
 }

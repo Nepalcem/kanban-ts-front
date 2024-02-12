@@ -4,7 +4,7 @@ import SearchButton from "./SearchButton/SearchButton";
 import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
 import { getBoard } from "appRedux/apiFunctions";
 import { getBoardLoadingSelector } from "appRedux/selectors";
-import { getTasks } from "appRedux/slices/tasksSlice";
+
 
 export default function SearchForm() {
   const [inputValue, setInputValue] = useState<string>("");
@@ -19,9 +19,7 @@ export default function SearchForm() {
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     try {
-      dispatch(getBoard(inputValue)).then((response) => {
-          dispatch(getTasks(response.payload.tasks));
-      });
+      dispatch(getBoard(inputValue));
       setInputValue("");
     } catch (error: any) {
       console.error("Error fetching issues:", error.message);
