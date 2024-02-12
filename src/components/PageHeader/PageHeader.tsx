@@ -1,6 +1,6 @@
 import SearchForm from "components/SearchForm/SearchForm";
 import BoardControl from "components/boardControls/BoardControl";
-import BoardStatus from "components/boardStatus/BoardStatus";
+import BoardStatus from "components/BoardStatus/BoardStatus";
 import { PageHeaderStyled } from "./PageHeader.styled";
 
 
