@@ -1,12 +1,8 @@
-import { ReactNode } from "react";
+import { ReactNode, FC } from "react";
 import { MainContainerDiv } from "./MainContainer.styled";
 
-interface MainContainerProps {
-  children: ReactNode;
-}
-
-function MainContainer({ children }: MainContainerProps) {
+const MainContainer: FC<{ children: ReactNode }> = ({ children }) => {
   return <MainContainerDiv>{children}</MainContainerDiv>;
-}
+};
 
 export default MainContainer;
