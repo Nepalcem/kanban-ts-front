@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { BoardReducer } from "./slices/boardSlice";
+import storage from "redux-persist/lib/storage";
 import {
   persistStore,
   persistReducer,
@@ -10,19 +10,21 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-
-
+import { BoardReducer } from "./slices/boardSlice";
+import { TasksReducer } from "./slices/tasksSlice";
 
 const rootReducer = combineReducers({
   boardData: BoardReducer,
+  tasks: TasksReducer
 });
+
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["boardData"],
+  whitelist: ["boardData", "tasks"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 
 export const store = configureStore({
   reducer: persistedReducer,

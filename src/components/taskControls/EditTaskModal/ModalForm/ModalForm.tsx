@@ -1,12 +1,12 @@
-import { useState, FC, ChangeEvent, FormEvent } from "react";
-import { ModalFormStyled } from "./ModalForm.styled";
+import { toast } from "react-toastify";
 import { FaCheck } from "react-icons/fa";
 import { LuLoader2 } from "react-icons/lu";
-import { FormTextField } from "./ModalForm.styled";
-import { toast } from "react-toastify";
-import { patchBoard } from "appRedux/apiFunctions";
-import { getBoardHashedId, getBoardLoadingSelector, getTasksSelector } from "appRedux/selectors";
+import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { patchTask } from "appRedux/apiFunctions";
+import { getBoardId, getTaskLoadingSelector } from "appRedux/selectors";
 import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
+import { ModalFormStyled } from "./ModalForm.styled";
+import { FormTextField } from "./ModalForm.styled";
 
 interface ModalFormProps {
   handleClose: () => void;
@@ -14,23 +14,23 @@ interface ModalFormProps {
   columnIndex: number;
   title: string;
   description: string;
+  _id: string;
 }
 
 const ModalForm: FC<ModalFormProps> = ({
   handleClose,
   status,
   columnIndex,
-  title, description
+  title,
+  description,
+  _id,
 }) => {
   const [taskTitle, setTaskTitle] = useState<string>(title);
   const [taskDescription, setTaskDescription] = useState<string>(description);
 
   const dispatch = useAppDispatch();
-  const isBoardLoading = useAppSelector(getBoardLoadingSelector);
-  const tasks = useAppSelector(getTasksSelector);
-  const hashedID = useAppSelector(getBoardHashedId);
-
-  const filteredTasks = tasks ? tasks.filter(task => task.title !== title) : [];
+  const isTaskLoading = useAppSelector(getTaskLoadingSelector);
+  const boardOwnerId = useAppSelector(getBoardId);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.name === "title") {
@@ -43,24 +43,27 @@ const ModalForm: FC<ModalFormProps> = ({
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (taskTitle.trim().length === 0 || taskDescription.length === 0) {
+    if (
+      taskTitle.trim().length === 0 ||
+      taskDescription.length === 0 ||
+      !_id ||
+      !boardOwnerId
+    ) {
       toast.warning("Task title and/or description cannot be empty!");
       return;
     }
+    
     const editedTaskData = {
+      _id,
       title: taskTitle.trim(),
       description: taskDescription,
       status: status as "done" | "to do" | "in-progress",
       columnIndex,
-    };
-
-    const boardObject = {
-      hashedID,
-      tasks: [...filteredTasks, editedTaskData],
+      owner: boardOwnerId,
     };
 
     try {
-      await dispatch(patchBoard(boardObject));
+      await dispatch(patchTask(editedTaskData));
       handleClose();
     } catch (error) {
       console.error("Error editing task:", error);
@@ -92,8 +95,8 @@ const ModalForm: FC<ModalFormProps> = ({
         variant="outlined"
       />
 
-      <button type="submit" disabled={isBoardLoading}>
-        {isBoardLoading ? (
+      <button type="submit" disabled={isTaskLoading}>
+        {isTaskLoading ? (
           <LuLoader2 className="loading-icon"></LuLoader2>
         ) : (
           <FaCheck />

@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import { IconButton } from "@mui/material";
 import { StyledEditIcon } from "./EditIcon.styled";
 import ModalForm from "./ModalForm/ModalForm";
 import CloseIcon from "./CloseIcon/CloseIcon";
-import { IconButton } from "@mui/material";
 import { mainModalStyle, closeButtonStyle } from "./modalStyles";
 
 

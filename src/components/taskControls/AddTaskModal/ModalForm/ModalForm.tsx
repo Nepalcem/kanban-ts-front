@@ -1,12 +1,12 @@
 import { useState, FC, ChangeEvent, FormEvent } from "react";
-import { ModalFormStyled } from "./ModalForm.styled";
+import { toast } from "react-toastify";
 import { FaCheck } from "react-icons/fa";
 import { LuLoader2 } from "react-icons/lu";
-import { FormTextField } from "./ModalForm.styled";
-import { toast } from "react-toastify";
-import { patchBoard } from "appRedux/apiFunctions";
-import { getBoardHashedId, getBoardLoadingSelector, getTasksSelector } from "appRedux/selectors";
+import { createTask } from "appRedux/apiFunctions";
+import { getBoardId, getTaskLoadingSelector } from "appRedux/selectors";
 import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
+import { ModalFormStyled } from "./ModalForm.styled";
+import { FormTextField } from "./ModalForm.styled";
 
 interface ModalFormProps {
   handleClose: () => void;
@@ -14,14 +14,17 @@ interface ModalFormProps {
   columnIndex: number;
 }
 
-const ModalForm: FC<ModalFormProps> = ({ handleClose, status, columnIndex }) => {
+const ModalForm: FC<ModalFormProps> = ({
+  handleClose,
+  status,
+  columnIndex,
+}) => {
   const [taskTitle, setTaskTitle] = useState<string>("");
   const [taskDescription, setTaskDescription] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  const isBoardLoading = useAppSelector(getBoardLoadingSelector);
-  const tasks = useAppSelector(getTasksSelector);
-  const hashedID = useAppSelector(getBoardHashedId);
+  const isTaskLoading = useAppSelector(getTaskLoadingSelector);
+  const boardOwnerId = useAppSelector(getBoardId);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.name === "title") {
@@ -34,24 +37,24 @@ const ModalForm: FC<ModalFormProps> = ({ handleClose, status, columnIndex }) => 
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (taskTitle.trim().length === 0 || taskDescription.length === 0) {
+    if (
+      taskTitle.trim().length === 0 ||
+      taskDescription.length === 0 ||
+      !boardOwnerId
+    ) {
       toast.warning("Task title and/or description cannot be empty!");
       return;
     }
     const newTaskData = {
-      title: taskTitle.trim(),
+      owner: boardOwnerId,
+      status: status as "to do" | "in-progress" | "done",
       description: taskDescription,
-      status: status as "done" | "to do" | "in-progress",
+      title: taskTitle,
       columnIndex,
     };
 
-    const boardObject = {
-      hashedID,
-      tasks: [...(tasks ?? []), newTaskData],
-    };
-
     try {
-      await dispatch(patchBoard(boardObject));
+      await dispatch(createTask(newTaskData));
       handleClose();
     } catch (error) {
       console.error("Error creating board:", error);
@@ -83,8 +86,8 @@ const ModalForm: FC<ModalFormProps> = ({ handleClose, status, columnIndex }) => 
         variant="outlined"
       />
 
-      <button type="submit" disabled={isBoardLoading}>
-        {isBoardLoading ? (
+      <button type="submit" disabled={isTaskLoading}>
+        {isTaskLoading ? (
           <LuLoader2 className="loading-icon"></LuLoader2>
         ) : (
           <FaCheck />

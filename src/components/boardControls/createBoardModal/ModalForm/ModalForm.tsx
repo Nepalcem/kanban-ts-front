@@ -1,12 +1,13 @@
+import { toast } from "react-toastify";
 import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { createBoard} from "appRedux/apiFunctions";
+import { getBoardLoadingSelector } from "appRedux/selectors";
+import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
+import { getTasks } from "appRedux/slices/tasksSlice";
 import { ModalFormStyled } from "./ModalForm.styled";
 import { FaCheck } from "react-icons/fa";
 import { LuLoader2 } from "react-icons/lu";
 import { FormTextField } from "./ModalForm.styled";
-import { toast } from "react-toastify";
-import { createBoard} from "appRedux/apiFunctions";
-import { getBoardLoadingSelector } from "appRedux/selectors";
-import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
 
 interface ModalFormProps {
   handleClose: () => void; 
@@ -35,7 +36,9 @@ const ModalForm: FC<ModalFormProps> = ({ handleClose }) => {
     };
 
     try {
-      await dispatch(createBoard(boardData));
+      await dispatch(createBoard(boardData)).then((response) => {
+        dispatch(getTasks(response.payload.tasks));
+      });
       handleClose(); 
     } catch (error) {
       console.error("Error creating board:", error);
@@ -47,7 +50,6 @@ const ModalForm: FC<ModalFormProps> = ({ handleClose }) => {
       <FormTextField
         type="text"
         name="title"
-        // inputProps={{ pattern: "^[A-Za-z\u0080-\uFFFF ' ]+$" }}
         title="Title may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
         onChange={handleChange}

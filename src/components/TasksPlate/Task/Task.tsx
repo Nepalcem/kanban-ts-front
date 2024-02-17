@@ -1,9 +1,9 @@
 import React from "react";
-import { TaskButtons, TaskTitle, TaskWrapper } from "./Task.styled";
 import { Draggable } from "react-beautiful-dnd";
 import { ITask } from "App/AppTypes";
 import DeleteTaskBtn from "components/taskControls/DeleteTaskBtn/DeleteTaskBtn";
 import EditTaskModal from "components/taskControls/EditTaskModal/EditTaskModal";
+import { TaskButtons, TaskTitle, TaskWrapper } from "./Task.styled";
 
 interface ITaskProps {
   task: ITask;
@@ -11,9 +11,10 @@ interface ITaskProps {
 }
 
 const Task: React.FC<ITaskProps> = ({ task, index }) => {
-  const { status, title, description, columnIndex } = task;
+  const { status, title, description, columnIndex, _id } = task;
+
   return (
-    <Draggable draggableId={title} index={index}>
+    <Draggable draggableId={_id} index={index}>
       {(provided) => {
         return (
           <TaskWrapper
@@ -29,8 +30,9 @@ const Task: React.FC<ITaskProps> = ({ task, index }) => {
                 status={status}
                 description={description}
                 columnIndex={columnIndex}
+                _id={_id}
               />
-              <DeleteTaskBtn title={title} />
+              <DeleteTaskBtn _id={_id} title={title} />
             </TaskButtons>
           </TaskWrapper>
         );

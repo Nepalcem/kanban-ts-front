@@ -1,14 +1,16 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { boardEndPoint } from "../endPoints";
+import { BaseTask } from "App/AppTypes";
+import { taskEndPoint } from "../endPoints";
 
-const getBoard = createAsyncThunk(
-  "board/getBoard",
-  async (hashedID: string, thunkAPI) => {
+const createTask = createAsyncThunk(
+  "tasks/create",
+  async (task: BaseTask, thunkAPI) => {
     try {
-      const response = await axios.get(`${boardEndPoint.BASE_URL}/${hashedID}`);
-      return response.data;
+      const response = await axios.post(`${taskEndPoint.BASE_URL}/`, task);
+
+      return response.data.result;
     } catch (e) {
       if (axios.isAxiosError(e)) {
         toast.error(e.response?.data.message);
@@ -20,4 +22,4 @@ const getBoard = createAsyncThunk(
   }
 );
 
-export default getBoard;
+export default createTask;

@@ -1,6 +1,6 @@
+import { ToastContainer } from "react-toastify";
 import MainContainer from "components/MainContainer/MainContainer";
 import PageHeader from "components/PageHeader/PageHeader";
-import { ToastContainer } from "react-toastify";
 import TaskPlateCondition from "components/TasksPlate/TaskPlateCondition/TaskPlateCondition";
 
 function App() {

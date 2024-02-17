@@ -1,38 +1,27 @@
 import { FC } from "react";
 import { StyledTrashIcon } from "./TrashIcon.styled";
-import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
-import { patchBoard } from "appRedux/apiFunctions";
-import { getBoardHashedId, getTasksSelector } from "appRedux/selectors";
+import { useAppDispatch } from "components/hooks/typedHooks";
+import { deleteTask } from "appRedux/apiFunctions";
 
 interface DeleteTaskBtnProps {
+  _id: string;
   title: string;
 }
 
-const DeleteTaskBtn: FC<DeleteTaskBtnProps> = ({ title }) => {
+const DeleteTaskBtn: FC<DeleteTaskBtnProps> = ({ _id, title }) => {
   const dispatch = useAppDispatch();
-   const tasks = useAppSelector(getTasksSelector);
-  const hashedID = useAppSelector(getBoardHashedId);
-  
-  const newTasks = tasks ? tasks.filter(task => task.title !== title) : [];
 
-   const boardObject = {
-    hashedID,
-    tasks: newTasks,
-  };
-
-  const handleDelete = (title: string) => {
+  const handleDelete = (_id: string, title: string) => {
     const isConfirmed = window.confirm(`Do you want to delete Task ${title}?`);
     if (isConfirmed) {
-      dispatch(patchBoard(boardObject));
+      dispatch(deleteTask(_id));
     }
   };
 
   return (
     <StyledTrashIcon
       onClick={() => {
-        if (title !== undefined) {
-          handleDelete(title);
-        }
+        handleDelete(_id, title);
       }}
     ></StyledTrashIcon>
   );

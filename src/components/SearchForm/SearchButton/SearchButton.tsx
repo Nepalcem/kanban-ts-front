@@ -1,5 +1,4 @@
 import { FaSearch } from "react-icons/fa";
-
 import { LuLoader2 } from "react-icons/lu";
 
 interface SearchButtonProps {

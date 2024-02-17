@@ -1,12 +1,12 @@
 import { useState, FC, ChangeEvent, FormEvent } from "react";
-import { ModalFormStyled } from "./ModalForm.styled";
-import { FaCheck } from "react-icons/fa";
-import { LuLoader2 } from "react-icons/lu";
-import { FormTextField } from "./ModalForm.styled";
 import { toast } from "react-toastify";
 import { patchBoard } from "appRedux/apiFunctions";
 import { getBoardLoadingSelector } from "appRedux/selectors";
 import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
+import { ModalFormStyled } from "./ModalForm.styled";
+import { FaCheck } from "react-icons/fa";
+import { LuLoader2 } from "react-icons/lu";
+import { FormTextField } from "./ModalForm.styled";
 
 interface IBoardEditModalProps {
   hashedID: string;

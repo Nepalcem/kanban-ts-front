@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
 import { columns } from "./data";
 import Column from "./Column/Column";
-import { TasksWrapper } from "./TasksPlate.styled";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { ITask } from "App/AppTypes";
-import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
-import { getBoardHashedId, getTasksSelector } from "appRedux/selectors";
-import { patchBoard } from "appRedux/apiFunctions";
+import { getTasksSelector } from "appRedux/selectors";
+import { patchTask } from "appRedux/apiFunctions";
+import { TasksWrapper } from "./TasksPlate.styled";
 
 export default function TasksPlate() {
+  const dispatch = useAppDispatch();
   const boardTasks = useAppSelector(getTasksSelector);
-  const hashedID = useAppSelector(getBoardHashedId);
   const [tasks, setTasks] = useState<ITask[]>(boardTasks || []);
 
   useEffect(() => {
     setTasks(boardTasks || []);
   }, [boardTasks]);
-
-  const dispatch = useAppDispatch();
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
@@ -37,7 +35,7 @@ export default function TasksPlate() {
     const newTasks = [...tasks];
 
     const draggedTaskIndex = newTasks.findIndex(
-      (task) => task.title === draggableId
+      (task) => task._id === draggableId
     );
 
     if (draggedTaskIndex === -1) {
@@ -103,12 +101,7 @@ export default function TasksPlate() {
       newTasks[draggedTaskIndex] = draggedTask;
     }
 
-    const boardObject = {
-      hashedID,
-      tasks: newTasks,
-    };
-
-    dispatch(patchBoard(boardObject));
+    dispatch(patchTask(draggedTask));
     setTasks(newTasks);
   };
 

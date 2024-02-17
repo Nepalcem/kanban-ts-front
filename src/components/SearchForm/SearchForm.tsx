@@ -1,9 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { StyledForm } from "./SearchForm.styled";
-import SearchButton from "./SearchButton/SearchButton";
 import { useAppDispatch, useAppSelector } from "components/hooks/typedHooks";
 import { getBoard } from "appRedux/apiFunctions";
+import { getTasks } from "appRedux/slices/tasksSlice";
 import { getBoardLoadingSelector } from "appRedux/selectors";
+import SearchButton from "./SearchButton/SearchButton";
+import { StyledForm } from "./SearchForm.styled";
 
 
 export default function SearchForm() {
@@ -18,12 +19,14 @@ export default function SearchForm() {
 
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    try {
-      dispatch(getBoard(inputValue));
-      setInputValue("");
-    } catch (error: any) {
-      console.error("Error fetching issues:", error.message);
-    }
+   try {
+     await dispatch(getBoard(inputValue)).then((response) => {
+       dispatch(getTasks(response.payload.tasks));
+     });
+     setInputValue("");
+   } catch (error: any) {
+     console.error("Error fetching issues:", error.message);
+   }
   };
 
   return (
