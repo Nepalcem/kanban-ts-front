@@ -9,7 +9,7 @@ const createBoard = createAsyncThunk(
   async (board: IBoard, thunkAPI) => {
     try {
       const response = await axios.post(`${boardEndPoint.BASE_URL}/`, board);
-      return response.data.board;
+      return response.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
         toast.error(e.response?.data.message);

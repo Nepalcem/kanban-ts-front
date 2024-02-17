@@ -29,8 +29,8 @@ const boardSlice = createSlice({
       })
       .addCase(
         createBoard.fulfilled,
-        (state, action: PayloadAction<IBoard>) => {
-          state.board = action.payload;
+        (state, action: PayloadAction<{ board: IBoard; tasks: ITask[] }>) => {
+          state.board = action.payload.board;
           state.isLoading = false;
           state.error = null;
         }
