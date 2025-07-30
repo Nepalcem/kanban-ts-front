@@ -50,3 +50,20 @@ export const StyledForm = styled.form`
       0 0 20px rgba(81, 203, 238, 0.6), 0 0 30px rgba(81, 203, 238, 0.4);
   }
 `;
+
+export const SearchFormMainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & h2 {
+    margin: 0;
+    margin-bottom: 20px;
+    order: 1;
+  }
+
+  & form {
+    order: 2;
+    margin-top: auto;
+  }
+`;

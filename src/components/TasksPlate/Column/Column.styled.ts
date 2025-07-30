@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const ColumnContainer = styled.div`
-  margin: 8px;
   border: 1px solid lightgrey;
   background-color: #f5f5f5;
   border-radius: 4px;
