@@ -7,8 +7,8 @@ box-sizing: border-box;
   margin-top: 10px;
   justify-content: space-between;
   width: 100%;
-  align-items: end;
   gap: 20px;
+  align-items: center;
 
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;

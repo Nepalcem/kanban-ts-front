@@ -6,7 +6,7 @@ import { StyledEditIcon } from "./EditIcon.styled";
 import ModalForm from "./ModalForm/ModalForm";
 import CloseIcon from "./CloseIcon/CloseIcon";
 import { mainModalStyle, closeButtonStyle } from "./modalStyles";
-import { BoardControlButton } from "./EditIcon.styled";
+import { BoardControlButton } from "../BoardControl.styled";
 
 const CreateBoardModal: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const CreateBoardModal: FC = () => {
     <>
       <BoardControlButton onClick={handleOpen}>
         <StyledEditIcon />
-        <span>Create New Board</span>
+        <span style={{ margin: "0 auto" }}>Create New Board</span>
       </BoardControlButton>
       <Modal
         open={open}

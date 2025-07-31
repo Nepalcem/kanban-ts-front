@@ -22,7 +22,7 @@ const AddTaskModal: FC<AddTaskButtonProps> = ({status, columnIndex}) => {
     <>
       <AddTaskButtonBig onClick={handleOpen}>
         <FaPlus />
-        Add task
+        <span style={{ fontSize: "16px" }}>Add task</span>
       </AddTaskButtonBig>
       <Modal
         open={open}

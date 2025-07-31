@@ -4,7 +4,7 @@ export const StyledForm = styled.form`
   display: flex;
   gap: 20px;
   & input {
-    min-width: 200px;
+    min-width: 100px;
     padding: 5px;
     font-size: 14px;
   }

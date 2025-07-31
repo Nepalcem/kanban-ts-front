@@ -2,6 +2,7 @@ import { FC } from "react";
 import { StyledTrashIcon } from "./TrashIcon.styled";
 import { useAppDispatch } from "components/hooks/typedHooks";
 import { deleteBoard } from "appRedux/apiFunctions";
+import { BoardControlButton } from "../BoardControl.styled";
 
 interface DeleteBoardBtnProps {
   hashedID: string | undefined;
@@ -18,13 +19,16 @@ const DeleteBoardBtn: FC<DeleteBoardBtnProps> = ({ hashedID }) => {
   };
 
   return (
-    <StyledTrashIcon
+    <BoardControlButton
       onClick={() => {
         if (hashedID !== undefined) {
           handleDelete(hashedID);
         }
       }}
-    ></StyledTrashIcon>
+    >
+      <StyledTrashIcon/>
+      <span style={{margin: "0 auto"}}>Delete Board</span>
+    </BoardControlButton>
   );
 };
 

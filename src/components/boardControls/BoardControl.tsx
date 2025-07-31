@@ -26,12 +26,11 @@ export default function BoardControl() {
         <>
           <BoardControlParagraph>
             <EditBoardModal hashedID={hashedID} title={title} />
-            <span>Update Current Board</span>
           </BoardControlParagraph>
 
           <BoardControlParagraph>
             <DeleteBoardBtn hashedID={hashedID} />
-            <span>Delete Board</span>
+
           </BoardControlParagraph>
         </>
       )}

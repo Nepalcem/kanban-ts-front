@@ -3,7 +3,12 @@ import { Draggable } from "react-beautiful-dnd";
 import { ITask } from "App/AppTypes";
 import DeleteTaskBtn from "components/taskControls/DeleteTaskBtn/DeleteTaskBtn";
 import EditTaskModal from "components/taskControls/EditTaskModal/EditTaskModal";
-import { TaskButtons, TaskTitle, TaskWrapper } from "./Task.styled";
+import {
+  TaskButtons,
+  TaskTitle,
+  TaskWrapper,
+  TaskTitleSpan,
+} from "./Task.styled";
 
 interface ITaskProps {
   task: ITask;
@@ -22,8 +27,11 @@ const Task: React.FC<ITaskProps> = ({ task, index }) => {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <TaskTitle>{title}</TaskTitle>
-            <p>{description}</p>
+            <TaskTitle>
+              <TaskTitleSpan>Title: </TaskTitleSpan>
+              {title}
+            </TaskTitle>
+            <p>Description: {description}</p>
             <TaskButtons>
               <EditTaskModal
                 title={title}

@@ -7,7 +7,7 @@ import {
   BoardStatusParagraph,
   BoardIdContainer,
   CopyButton,
-  BoardStatusMainDiv
+  BoardStatusMainDiv,
 } from "./BoardStatus.styled";
 
 export default function BoardStatus() {
@@ -33,15 +33,20 @@ export default function BoardStatus() {
         Board Title: <span style={{ fontSize: "18px" }}>{board?.title}</span>
       </BoardStatusParagraph>
       <BoardStatusParagraph>
-        Board ID: <BoardIdContainer>{board?.hashedID}</BoardIdContainer>
-        <CopyButton
-          $copied={copied}
-          onClick={handleCopyBoardId}
-          title="Copy Board ID to clipboard"
-        >
-          {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
-          {copied ? "Copied!" : "Copy"}
-        </CopyButton>
+        Board ID:{" "}
+        {board && (
+          <>
+            <BoardIdContainer>{board.hashedID}</BoardIdContainer>
+            <CopyButton
+              $copied={copied}
+              onClick={handleCopyBoardId}
+              title="Copy Board ID to clipboard"
+            >
+              {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
+              {copied ? "Copied!" : "Copy"}
+            </CopyButton>
+          </>
+        )}
       </BoardStatusParagraph>
     </BoardStatusMainDiv>
   );

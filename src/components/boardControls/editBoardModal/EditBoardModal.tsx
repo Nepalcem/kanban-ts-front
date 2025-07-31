@@ -6,6 +6,7 @@ import { StyledEditIcon } from "./EditIcon.styled";
 import ModalForm from "./ModalForm/ModalForm";
 import CloseIcon from "./CloseIcon/CloseIcon";
 import { mainModalStyle, closeButtonStyle } from "./modalStyles";
+import { BoardControlButton } from "../BoardControl.styled";
 
 interface IEditBoardModal {
   hashedID: string;
@@ -15,11 +16,16 @@ interface IEditBoardModal {
 const EditBoardModal: FC<IEditBoardModal> = ({ hashedID, title }) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
-      <StyledEditIcon onClick={handleOpen} />
+      <BoardControlButton onClick={handleOpen}>
+        <StyledEditIcon />
+        <span>Update Current Board</span>
+      </BoardControlButton>
       <Modal
         open={open}
         onClose={handleClose}
