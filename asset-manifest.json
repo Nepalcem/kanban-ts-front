@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/kanban-ts-front/static/css/main.f029a054.css",
-    "main.js": "/kanban-ts-front/static/js/main.cf7d84de.js",
+    "main.js": "/kanban-ts-front/static/js/main.f3948c6b.js",
     "index.html": "/kanban-ts-front/index.html",
     "main.f029a054.css.map": "/kanban-ts-front/static/css/main.f029a054.css.map",
-    "main.cf7d84de.js.map": "/kanban-ts-front/static/js/main.cf7d84de.js.map"
+    "main.f3948c6b.js.map": "/kanban-ts-front/static/js/main.f3948c6b.js.map"
   },
   "entrypoints": [
     "static/css/main.f029a054.css",
-    "static/js/main.cf7d84de.js"
+    "static/js/main.f3948c6b.js"
   ]
 }
