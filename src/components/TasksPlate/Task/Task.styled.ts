@@ -39,5 +39,4 @@ position: absolute;
 right: 10px;
 bottom: 10px;
 display: flex;
-gap: 10px;
 `;

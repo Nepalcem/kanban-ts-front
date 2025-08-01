@@ -6,7 +6,7 @@ import Column from "./Column/Column";
 import { ITask } from "App/AppTypes";
 import { getTasksSelector } from "appRedux/selectors";
 import { patchTask } from "appRedux/apiFunctions";
-import { TasksWrapper } from "./TasksPlate.styled";
+import { TasksWrapper, TasksWrapperTitle } from "./TasksPlate.styled";
 
 export default function TasksPlate() {
   const dispatch = useAppDispatch();
@@ -107,7 +107,9 @@ export default function TasksPlate() {
 
   return (
     <>
-      <h2>You may Drag and Drop Tasks between columns to change the Status</h2>
+      <TasksWrapperTitle>
+        You may Drag and Drop Tasks between columns to change the Status
+      </TasksWrapperTitle>
       <DragDropContext onDragEnd={onDragEnd}>
         <TasksWrapper>
           {columns.map((column) => {

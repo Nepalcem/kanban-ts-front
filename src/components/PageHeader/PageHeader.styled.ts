@@ -1,9 +1,20 @@
 import styled from "styled-components";
 
 export const PageHeaderStyled = styled.div`
-box-sizing: border-box;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 1024px) {
+    max-width: fit-content;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+  }
   margin-top: 10px;
   justify-content: space-between;
   width: 100%;

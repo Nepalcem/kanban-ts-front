@@ -5,6 +5,9 @@ export const ColumnContainer = styled.div`
   background-color: #f5f5f5;
   border-radius: 4px;
   width: 300px;
+  @media (min-width: 768px) and (max-width: 1024px) {
+    width: 250px;
+  }
   display: flex;
   flex-direction: column;
 `;
